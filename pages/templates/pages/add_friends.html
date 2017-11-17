@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Add Friends{% endblock %}
+
+{% block top_blue_part %}
+    <a href="{% url 'friends' %}"><span class="glyphicons glyphicons-step-backward white"></span></a>
+    <h2> Find Friends</h2>
+    <a href="#"><span class="glyphicons glyphicons-stop-sign white"></span></a>
+{% endblock %}
+
+{% block content %}
+/
+    <div class="post_wrapper">
+        <h2>Friend Requests</h2>
+        {% for r in friend_request %}
+            <div id="{{ r.id }}">
+        {{ r.requestor.username }}
+            <button id="{{ r.id }}_accept_friend" class="accept_button">Accept</button>
+            <button id="{{ r.id }}_reject_friend" class="reject_button">Reject</button>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('.accept_button').click(function () {
+            let id = parseInt($(this).attr('id'));
+            $.ajax({
+                url: "{% url 'accept_friend' %}",
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function () {
+                    $('#'+id).css('display', 'none')
+                }
+            })
+        })
+    $('.reject_button').click(function () {
+        let id = parseInt($(this).attr('id'));
+            $.ajax({
+                url: "{% url 'reject_friend' %}",
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function () {
+                    $('#'+id).css('display', 'none')
+                }
+            })
+    })
+    </script>
+{% endblock %}
+
+
+
+{#<form type="get" action="." style="margin: 0">#}
+{#    <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >#}
+{#    <button id="search_submit" type="submit" >Submit</button>#}
+{#</form>#}

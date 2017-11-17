@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ user.username }}'s Map{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block top_blue_part %}
+<h2>Map/Search</h2>
+{% endblock %}
+
+{% block content %}
+    <div id="map"></div>
+
+    <div class="post_wrapper">
+        {% for c in courses %}
+        <a href="/courses/{{ c.slug }}">{{ c.name }}</a> <br>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        function initMap() {
+            var pier_park = {lat: 45.603419, lng: -122.758308};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: pier_park
+            });
+            var marker = new google.maps.Marker({
+                position: pier_park,
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnypQR7FulmtFS0cEqWIgAttImDrqY5Rk&callback=initMap">
+    </script>
+{% endblock %}

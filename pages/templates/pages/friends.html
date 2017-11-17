@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ user.username }}'s Friends{% endblock %}
+
+{% block top_blue_part %}
+    <a href="{% url 'profile' user.username %}"><span class="glyphicons glyphicons-step-backward white"></span></a>
+    <h2>Friends</h2>
+    <a href="{% url 'add_friends' %}"><span><span class="glyphicons glyphicons-user-add white"></span></span></a>
+{% endblock %}
+
+{% block content %}
+
+    <div class="post_wrapper">
+        {% for f in all_friends %}
+        <div class="profile_pic"><img src="{{ f.profile_pic.url }}" alt="profile_pic0"></div>{{ f.username }}
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

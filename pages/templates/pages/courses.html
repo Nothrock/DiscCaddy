@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ user.username }}'s Map{% endblock %}
+{% block css %}
+
+{% endblock %}
+
+{% block top_blue_part %}
+    <h2>Courses</h2>
+{% endblock %}
+
+{% block content %}
+    <div id="map"></div>
+
+    <div id="course_info" class="post_wrapper">
+        <div class="course_info_box">
+            <div>Holes: <br>
+                {{ course.number_of_holes }}</div>
+            <div>{{ course.name }}</div>
+            <div>Par: <br>
+                {{ course.par_for_course }}</div>
+        </div>
+        <div>Distance: <br>
+            {{ course.course_length }}</div>
+        <div>Description: <br>
+            {{ course.course_description }}</div>
+    </div>
+
+    <div class="post_wrapper">
+    {% for h in course.holes.all %}
+        Hole: {{ h.hole_number }} <br>
+        Par: {{ h.par_for_hole }} <br>
+        Distance: {{ h.hole_length }} <br>
+        <button id="{{ h.pk }}_check_in" class="check_in_button">Check-In</button>
+    {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        function initMap() {
+            var pier_park = {lat: 45.603419, lng: -122.758308};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: pier_park
+            });
+            var marker = new google.maps.Marker({
+                position: pier_park,
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnypQR7FulmtFS0cEqWIgAttImDrqY5Rk&callback=initMap">
+    </script>
+
+    <script>
+        $('.check_in_button').click(function () {
+            console.log(parseInt($(this).attr('id')));
+            window.location.href = "{% url 'check_in_form' %}";
+
+        })
+    </script>
+{% endblock %}

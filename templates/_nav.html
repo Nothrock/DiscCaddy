@@ -1,0 +1,16 @@
+<nav>
+    <div class="nav_div">
+        <div><a href="{% url 'news' %}"><span class="glyphicons glyphicons-article"></span></a></div>
+        <div><a href="{% url 'my_bag' %}"><span class="glyphicons glyphicons-shopping-bag"></span></a></div>
+        <div><a href="{% url 'map_search' %}"><span class="glyphicons glyphicons-nearby-circle"></span></a></div>
+        {% if user.is_authenticated %}
+            <div><a href="{% url 'profile' user.username %}"><span class="glyphicons glyphicons-user"></span></a></div>
+{#            TODO: move logout button behind settings#}
+            <div><a href="{% url 'logout' %}"><span class="glyphicons glyphicons-log-out"></span></a></div>
+            {% else %}
+{#                <div><a href="{% url 'login' %}"><span class="glyphicons glyphicons-log-in"></span></a></div>#}
+{#                <div><a href="{% url 'register' %}">Sign Up</a></div>#}
+        {% endif %}
+        <div><a href="{% url 'activity' %}"><span class="glyphicons glyphicons-check"></span></a></div>
+    </div>
+</nav>
