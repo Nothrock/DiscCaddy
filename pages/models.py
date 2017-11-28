@@ -72,17 +72,10 @@ class CheckInImage(models.Model):
     img = models.ImageField()
     check_in = models.ForeignKey('CheckIn', related_name='images')
 
+
 class CheckInComment(models.Model):
     comment = models.ForeignKey('Comment')
     check_in = models.ForeignKey('CheckIn', related_name='comments')
-
-
-class FriendManager(models.Manager):
-    def friends(self, username):
-        if self.requestor.username == username:
-            return self.requestee
-        else:
-            return self.requestor
 
 
 class Friend(models.Model):
@@ -90,7 +83,6 @@ class Friend(models.Model):
     requestee = models.ForeignKey(User, related_name='requests_received')
     accepted = models.NullBooleanField(default=None, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
-    objects = FriendManager()
 
 
 class Disc(models.Model):
@@ -101,3 +93,8 @@ class Disc(models.Model):
 
     def __str__(self):
         return '{} {} {} {}'.format(self.brand, self.plastic, self.disc, self.weight)
+
+
+class News(models.Model):
+    updates = models.CharField(max_length=999, null=False, blank=False)
+    coming_soon = models.CharField(max_length=999, null=False, blank=False)

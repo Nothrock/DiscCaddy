@@ -52,9 +52,11 @@ def settings(request):
 
 @login_required
 def friends(request):
-    # all_friends = Friend.objects.filter((Q(requestor__username=request.user.username) | Q(requestee__username=request.user.username)) & Q(accepted=True))
-    all_friends = Friend.objects.friends(request.user.username)
-    return render(request, 'pages/friends.html', {'all_friends': all_friends})
+    all_friends = Friend.objects.filter(
+        (Q(requestor__username=request.user.username) | Q(requestee__username=request.user.username)) & Q(
+            accepted=True))
+    my_friends = [x.requestee if x.requestor.username == request.user.username else x.requestor for x in all_friends]
+    return render(request, 'pages/friends.html', {'all_friends': my_friends})
 
 
 @login_required

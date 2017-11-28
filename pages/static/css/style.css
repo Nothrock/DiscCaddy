@@ -11,8 +11,9 @@ header {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 60px;
+    min-height: 60px;
     background-color: cornflowerblue;
+    padding-bottom: 8px;
 }
 
 main {
@@ -163,9 +164,22 @@ main {
 .white, .white a:link {
     color: white;
 }
-/*.score_spacer {*/
-    /*margin: 5px;*/
-/*}*/
+
+.search_boxy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    /*border-radius: ;*/
+}
+
+.search_boxy form * {
+    border-radius: 10px;
+    padding: 5px;
+    border: none;
+}
+
+
 
 @media screen and (max-width: 600px) {
     .post_wrapper, nav {

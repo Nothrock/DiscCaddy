@@ -4,12 +4,18 @@
 
 {% block top_blue_part %}
     <a href="{% url 'friends' %}"><span class="glyphicons glyphicons-step-backward white"></span></a>
-    <h2> Find Friends</h2>
+    <div class="search_boxy"><h2> Find Friends</h2>
+            <form type="get" action="." style="margin: 0">
+            <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >
+            <button id="search_submit" type="submit" >Submit</button>
+            </form>
+    </div>
+
     <a href="#"><span class="glyphicons glyphicons-stop-sign white"></span></a>
 {% endblock %}
 
 {% block content %}
-/
+
     <div class="post_wrapper">
         <h2>Friend Requests</h2>
         {% for r in friend_request %}
@@ -56,7 +62,3 @@
 
 
 
-{#<form type="get" action="." style="margin: 0">#}
-{#    <input  id="search_box" type="text" name="search_box"  placeholder="Search..." >#}
-{#    <button id="search_submit" type="submit" >Submit</button>#}
-{#</form>#}
