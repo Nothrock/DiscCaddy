@@ -27,13 +27,14 @@
     </div>
 
     <div class="post_wrapper">
-    {% for h in course.holes.all %}
-        Hole: {{ h.hole_number }} <br>
-        Par: {{ h.par_for_hole }} <br>
-        Distance: {{ h.hole_length }} <br>
-        <button id="{{ h.pk }}_check_in" class="check_in_button">Check-In</button>
-    {% endfor %}
-
+        <div class="hole_info_box">
+        {% for h in course.holes.all %}
+            <div>Hole: {{ h.hole_number }}</div>
+            <div>Par: {{ h.par_for_hole }}</div>
+            <div>Distance: {{ h.hole_length }}</div>
+            <div><button id="{{ h.pk }}_check_in" class="check_in_button">Check-In</button></div>
+        {% endfor %}
+        </div>
     </div>
 
 {% endblock %}

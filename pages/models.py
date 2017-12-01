@@ -96,5 +96,5 @@ class Disc(models.Model):
 
 
 class News(models.Model):
-    updates = models.CharField(max_length=999, null=False, blank=False)
-    coming_soon = models.CharField(max_length=999, null=False, blank=False)
+    updates = models.CharField(max_length=999, null=True, blank=True)
+    coming_soon = models.CharField(max_length=999, null=True, blank=True)

@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.http import JsonResponse
-from pages.models import User, Course, CheckIn, Hole, CheckInImage, Friend
+from pages.models import User, Course, CheckIn, Hole, CheckInImage, Friend, News
 from django import forms
 from pages.forms import UserForm
 from django.contrib.auth import authenticate, login

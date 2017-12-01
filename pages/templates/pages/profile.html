@@ -9,9 +9,9 @@
 
 
 {% block top_blue_part %}
-    <a href="{% url 'friends' %}"><span id="{{ h.pk }}_friends" class="glyphicons glyphicons-group white"></span></a>
+    <a href="{% url 'friends' %}"><span id="{{ h.pk }}_friends" class="white">friends</span></a>
     <h2>{{ user.first_name }} {{ user.last_name }}</h2>
-    <a href="{% url 'settings' %}"><span id="{{ h.pk }}_settings" class="glyphicons glyphicons-settings white"></span></a>
+    <a href="{% url 'settings' %}"><span id="{{ h.pk }}_settings" class="white">settings</span></a>
 {% endblock %}
 
 {% block content %}
