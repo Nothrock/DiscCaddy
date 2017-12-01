@@ -14,7 +14,7 @@
         {% for f in all_friends %}
         <div class="profile_pic"><img src="{{ f.profile_pic.url }}" alt="profile_pic0"></div>
         <div>{{ f.username }}</div>
-        <div><button id="{{ f.id }}reject_friend" class="reject_button">Reject</button></div>
+        <div><button id="{{ f.id }}reject_friend" class="reject_button">Un-friend</button></div>
         {% endfor %}
     </div>
 
