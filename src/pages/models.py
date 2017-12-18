@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
+from django.contrib.gis.db import models as geo_models
 
 
 class User(AbstractUser):
@@ -11,6 +12,7 @@ class User(AbstractUser):
     pdga_number = models.CharField(max_length=8, null=True, blank=True)
     profile_pic = models.ImageField(null=True, blank=True)
 
+
 class Course(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     number_of_holes = models.CharField(max_length=2, null=False, blank=False)
@@ -18,6 +20,7 @@ class Course(models.Model):
     course_length = models.CharField(max_length=255, null=False, blank=False)
     course_description = models.TextField()
     slug = models.SlugField(unique=True, blank=True, null=True)
+    point = geo_models.PointField(blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -53,7 +56,6 @@ class Hi_Five(models.Model):
     hi_five_er = models.ForeignKey(User, related_name='fives_given')
     hi_five_ee = models.ForeignKey(User, related_name='fives_received')
     check_in = models.ForeignKey('CheckIn', related_name='hi_fives')
-
 
 
 class CheckIn(models.Model):

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ user.username }}'s Map{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block top_blue_part %}
+    <h2>Map/Search</h2>
+{% endblock %}
+
+{% block content %}
+    <div id="map"></div>
+
+    <div class="post_wrapper">
+        {% for c in courses %}
+            <a href="/courses/{{ c.slug }}">{{ c.name }}</a> <br>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block js %}
+
+    <script>
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                initMap(position.coords.latitude, position.coords.longitude);
+            });
+        } else {
+            initMap(0, 0);
+        }
+
+        function initMap(lat, lon) {
+            {#let pier_park = {lat: 45.603419, lng: -122.758308};#}
+            let map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: {lat: lat, lng:lon}
+            });
+            let marker = new google.maps.Marker({
+                position: {lat: lat, lng:lon},
+                map: map
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnypQR7FulmtFS0cEqWIgAttImDrqY5Rk">
+    </script>
+{% endblock %}
