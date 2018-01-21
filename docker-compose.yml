@@ -1,0 +1,29 @@
+db:
+  image: mdillon/postgis
+  restart: always
+  environment:
+    POSTGRES_USER: disc
+    POSTGRES_PASSWORD: disc
+    POSTGRES_DB: disc
+
+redis:
+  image: 'bitnami/redis:latest'
+  environment:
+    - ALLOW_EMPTY_PASSWORD=yes
+  ports:
+    - '6379:6379'
+  volumes:
+    - ./reddis-persist:/bitnami
+
+web:
+  build: .
+  command: bash -c "python ./manage.py makemigrations && python ./manage.py migrate && python ./manage.py runserver 0.0.0.0:8000"
+  volumes:
+    - .:/code
+  ports:
+    - "8000:8000"
+  links:
+    - db
+    - redis
+  environment:
+    DATABASE_URL: postgis://postgres:postgres@db:5432/postgres
