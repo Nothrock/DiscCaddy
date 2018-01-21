@@ -1,26 +1,29 @@
-version: '2'  
-services:  
-  nginx:
-    image: nginx:latest
-    container_name: ng01
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./src:/src
-      - ./config/nginx:/etc/nginx/conf.d
-    depends_on:
-      - web
-  web:
-    build: .
-    container_name: dg01
-    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn Disc_Caddy_App.wsgi -b 0.0.0.0:8000"
-    depends_on:
-      - db
-    volumes:
-      - ./src:/src
-    expose:
-      - "8000"
+db:
+  image: mdillon/postgis
+  restart: always
+  environment:
+    POSTGRES_USER: disc
+    POSTGRES_PASSWORD: disc
+    POSTGRES_DB: disc
 
-  db:
-    image: postgres:latest
-    container_name: ps01
+redis:
+  image: 'bitnami/redis:latest'
+  environment:
+    - ALLOW_EMPTY_PASSWORD=yes
+  ports:
+    - '6379:6379'
+  volumes:
+    - ./reddis-persist:/bitnami
+
+web:
+  build: .
+  command: bash -c "python ./manage.py makemigrations && python ./manage.py migrate && python ./manage.py runserver 0.0.0.0:8000"
+  volumes:
+    - .:/code
+  ports:
+    - "8000:8000"
+  links:
+    - db
+    - redis
+  environment:
+    DATABASE_URL: postgis://postgres:postgres@db:5432/postgres
